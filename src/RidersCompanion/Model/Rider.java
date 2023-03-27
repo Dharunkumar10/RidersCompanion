@@ -1,13 +1,10 @@
 package RidersCompanion.Model;
-
 import RidersCompanion.Controller.RideDAO;
 import RidersCompanion.Controller.RiderDAO;
-
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
-
 public class Rider {
     int r_id;
     private String Name;
@@ -126,7 +123,7 @@ public class Rider {
           if(RideDAO.isAvailable(ride_id)) {
               try {
                   if (dao.joinRide(ride_id,rider_id)) {
-                      System.out.println("You where joind to the ride successfully");
+                      System.out.println("You where joined to the ride successfully");
                       return true;
                   } else {
                       System.out.println("!! You where already joined the ride");

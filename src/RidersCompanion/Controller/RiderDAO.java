@@ -163,11 +163,11 @@ public class RiderDAO {
             {
                 System.out.println("------> RIDE STARTED TODAY !!");
             }
-            else if(h>0)
+            else if(h<0)
             {
                 System.out.println("------> RIDE YET TO START !!");
             }
-            else if(h<0 && k<0)
+            else if(h>0 && k<0)
             {
                 System.out.println("-------> RIDE IN PROGRESS !!");
             }

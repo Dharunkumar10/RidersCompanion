@@ -53,7 +53,6 @@ public class Main {
            rider_id = dao.logincheck(name,pass);
            if(rider_id!=0)
            {
-               rider_id=0;
                System.out.println("->...UserName and password already available...<-");
                run();
            }
@@ -80,7 +79,6 @@ public class Main {
         } catch (SQLException e) {
             System.out.println("registration error"+e);
         }
-
     }
 
     public static void SignIn() {
@@ -98,7 +96,7 @@ public class Main {
             rider_id = dao.logincheck(name,pass);
            if(rider_id==0)
            {
-               System.out.println("... Worng userName or password ...");
+               System.out.println("... Wrong userName or password ...");
                run();
            }
            else
@@ -115,9 +113,8 @@ public class Main {
     public static void createOrJoin(int rider_id) {
 
         Rider rider = new Rider();
-        Ride ride = new Ride();
+//        Ride ride = new Ride();
         Scanner sc = new Scanner(System.in);
-       // boolean b = true;
             System.out.println();
             System.out.println("===============  RIDER MENU ==================");
             System.out.println("1. Create Ride");
@@ -132,43 +129,56 @@ public class Main {
 
             if (n == 1)
             {
-
                 rider.createRide(rider_id);
-
                 createOrJoin(rider_id);
             }
-            else if (n == 2)
-            {
+            else if (n == 2) {
                 searchRide(rider_id);
 
                 System.out.println();
                 System.out.println("Enter RideID you want to join :");
-                int ride_id = sc.nextInt();sc.nextLine();
+                int ride_id = sc.nextInt();
+                sc.nextLine();
 
-               if( rider.joinRide(ride_id,rider_id)) {
-                   createOrJoin(rider_id);
-               }
-               else
-               {
-                   createOrJoin(rider_id);
-               }
-            }
-            else if (n == 3)
-            {
-                Ride.createdRideStatus(rider_id);createOrJoin(rider_id);
-            }
-            else if (n == 4)
-            {
-                Ride.joinedRideStatus(rider_id);createOrJoin(rider_id);
-            }
-            else if (n == 6)
-            {
-                System.out.println("Good Bye");
-            } else if (n == 5) {
+                try {
+                    System.out.println(">>>>>>>>  Members of this Ride  <<<<<<<<<");
+                    RideDAO.showRiders(ride_id);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println();
+                System.out.println(">>>>>>  Your options   <<<<<<");
+                System.out.println("1. join");
+                System.out.println("2. back");
 
-                System.out.println("Logged out Successfully");
-                run();
-            }
+                String d = sc.nextLine();
+                int option = Integer.parseInt(d);
+                if (option == 1) {
+
+                    if (rider.joinRide(ride_id, rider_id)) {
+                        createOrJoin(rider_id);
+                    } else {
+                        createOrJoin(rider_id);
+                    }
+                }
+                else
+                {
+                    createOrJoin(rider_id);
+                }
+                } else if (n == 3) {
+                    Ride.createdRideStatus(rider_id);
+                    createOrJoin(rider_id);
+                } else if (n == 4) {
+                    Ride.joinedRideStatus(rider_id);
+                    createOrJoin(rider_id);
+                } else if (n == 6) {
+                    System.out.println("Good Bye");
+                } else if (n == 5) {
+
+                    System.out.println("Logged out Successfully");
+                    run();
+                }
+
     }
 
     public static void searchRide(int rider_id) {
@@ -230,7 +240,6 @@ public class Main {
 
         return hexString.toString();
     }
-
     // Driver code
     public static String sha(String pass)
     {
