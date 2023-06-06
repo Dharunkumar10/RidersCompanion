@@ -141,10 +141,9 @@ public class Main {
                 sc.nextLine();
 
                 try {
-                    System.out.println(">>>>>>>>  Members of this Ride  <<<<<<<<<");
-                    RideDAO.showRiders(ride_id);
+                    RideDAO.showDetails(ride_id);
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("showDetails error"+e);
                 }
                 System.out.println();
                 System.out.println(">>>>>>  Your options   <<<<<<");

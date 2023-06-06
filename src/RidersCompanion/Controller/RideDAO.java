@@ -184,15 +184,35 @@ public class RideDAO {
 
     }
 
-    public static void showRiders(int ride_id) throws SQLException {
+    public static void showDetails(int ride_id) throws SQLException {
+
         Connection con = DBConnection.getConnection();
         Statement st = con.createStatement();
+        System.out.println(">>>>>>>>>>  CREATOR DETAILS OF THIS RIDE  <<<<<<<<");
+        String cq = "select name,email,phno,licno from rider_details where rider_id in (select creator_id from rides where r_id = %d)".formatted(ride_id);
+
+        ResultSet set1 = st.executeQuery(cq);
+
+        while (set1.next()) {
+
+            String name = set1.getString("name");
+            String email = set1.getString("email");
+            String phno = set1.getString("phno");
+            String licno = set1.getString("licno");
+            System.out.println();
+            System.out.println("Creator Name : " + name + "  ||  email : " + email + "  ||  phone : " + phno +"    ||   licno : "+licno);
+
+        }
+
+        int n=1;
+        System.out.println();
+        System.out.println(">>>>>>>>>>  MEMBERS DETAILS OF THIS RIDE  <<<<<<<<");
         String sq = "select name,email,phno from rider_details where rider_id in (select rider_id from ride_participants where r_id = %d)".formatted(ride_id);
         ResultSet set = st.executeQuery(sq);
         if (!set.next())
             System.out.println("No members joined in your ride");
         else {
-            int n = 1;
+
             while (set.next()) {
 
                 String name = set.getString("name");

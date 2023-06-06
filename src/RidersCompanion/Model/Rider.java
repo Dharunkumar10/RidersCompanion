@@ -4,6 +4,10 @@ import RidersCompanion.Controller.RiderDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 public class Rider {
     int r_id;
@@ -75,26 +79,30 @@ public class Rider {
 
       System.out.println("Enter ride starting date in formate : dd-mm-yyyy (without space)");
       String sdate = sc.next();
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-      try {
-          ride.setStartdate(dateFormat.parse(sdate));
 
-      } catch(ParseException e)
-      {
-          e.printStackTrace();
-      }
+
+          SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+          try {
+              ride.setStartdate(dateFormat.parse(sdate));
+
+          } catch (ParseException e) {
+              System.out.println("date error"+e);
+          }
+
 
 
       System.out.println("Enter ride ending date in formate : dd-mm-yyyy (without space)");
       String edate = sc.next();
 
-      SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
-      try {
-          ride.setEnddate(dateFormat1.parse(edate));
-      } catch(ParseException e)
-      {
-          e.printStackTrace();
-      }
+
+
+          SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
+          try {
+              ride.setEnddate(dateFormat1.parse(edate));
+          } catch (ParseException e) {
+              System.out.println("date error"+e);
+          }
+
 
       System.out.println("Enter the member limit of your ride :");
       ride.setMembersLimit(sc.nextInt());
@@ -148,6 +156,26 @@ public class Rider {
       return true;
   }
 
+//    public static boolean isValid(final String date) {
+//
+//        boolean valid = false;
+//
+//        try {
+//
+//            // ResolverStyle.STRICT for 30, 31 days checking, and also leap year.
+//            LocalDate.parse(date,
+//                    DateTimeFormatter.ofPattern("d-M-uuuu")
+//                            .withResolverStyle(ResolverStyle.STRICT)
+//            );
+//
+//            valid = true;
+//
+//        } catch (DateTimeParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return valid;
+//    }
 
 
 }
